@@ -1,1 +1,0 @@
-alert('deal analyzer');

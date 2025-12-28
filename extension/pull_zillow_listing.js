@@ -1,0 +1,1 @@
+alert('deal analyzer triggered!')
