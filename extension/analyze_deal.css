@@ -1,0 +1,15 @@
+#deal_analyzer_trigger {
+  position: fixed;
+  right: 50px;
+  top: 50px;
+  z-index: 99999;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: blue;
+  color: white;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
