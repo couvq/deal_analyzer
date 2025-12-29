@@ -5,6 +5,7 @@ interface ListingData {
   numBeds: number;
   numBaths: number;
   squareFootage: number;
+  rentZestimate: number;
 }
 
 // scrape relevant listing data
@@ -32,6 +33,7 @@ const squareFootage = Number(
     .querySelector('[data-testid="bed-bath-sqft-facts"] :nth-child(3)')
     .textContent.replace(/[a-zA-Z,]/g, "")
 );
+const rentZestimate = Number(document.querySelector('[data-testid="rent-zestimate"]').textContent.replace(/[a-zA-Z,$/]/g, ""))
 
 const listingData: ListingData = {
   zillowHomeDetailsLink,
@@ -40,10 +42,11 @@ const listingData: ListingData = {
   numBeds,
   numBaths,
   squareFootage,
+  rentZestimate
 };
 
 const baseUrl = "http://localhost:5173";
-const redirectUrl = `${baseUrl}?zillowHomeDetailsLink=${listingData.zillowHomeDetailsLink}&price=${listingData.price}&address=${listingData.address}&numBeds=${listingData.numBeds}&numBaths=${listingData.numBaths}&squareFootage=${listingData.squareFootage}`;
+const redirectUrl = `${baseUrl}?zillowHomeDetailsLink=${listingData.zillowHomeDetailsLink}&price=${listingData.price}&address=${listingData.address}&numBeds=${listingData.numBeds}&numBaths=${listingData.numBaths}&squareFootage=${listingData.squareFootage}&rentZestimate=${listingData.rentZestimate}`;
 
 // render a link to redirect to the deal analyzer webpage with the redirect url we have constructed
 const extensionLink = document.createElement("a");
