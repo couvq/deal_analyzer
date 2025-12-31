@@ -2,12 +2,11 @@ import { useForm } from "react-hook-form";
 import Analysis from "./components/Analysis";
 import PropertyInfo from "./components/forms/PropertyInfo";
 import type { FormValues } from "./types/shared";
+import { getDefaultValuesFromUrl } from "./lib/utils";
 
 const App = () => {
   const { register, control } = useForm<FormValues>({
-    defaultValues: {
-      address: "",
-    },
+    defaultValues: getDefaultValuesFromUrl()
   });
 
   return (
