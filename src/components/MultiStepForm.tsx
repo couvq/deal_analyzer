@@ -5,6 +5,7 @@ import PropertyInfo from "./forms/PropertyInfo";
 import Analysis from "./Analysis";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { useTabs, useTabsDispatch } from "@/context/TabsContext";
+import PaginationButtons from "./PaginationButtons";
 
 const MultiStepForm = () => {
   const { register, control } = useForm<FormValues>({
@@ -28,6 +29,7 @@ const MultiStepForm = () => {
           <Analysis control={control} />
         </TabsContent>
       </Tabs>
+      <PaginationButtons />
     </>
   );
 };

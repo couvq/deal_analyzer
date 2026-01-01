@@ -53,11 +53,6 @@ const tabsReducer = (state: TabsState, action: TabAction): TabsState => {
     case "change": {
       const isPrevDisabled = backwardTabs[action.newTab] === null;
       const isNextDisabled = forwardTabs[action.newTab] == null;
-      console.log({
-        newTab: action.newTab,
-        isPrevDisabled,
-        isNextDisabled,
-      });
       return {
         activeTab: action.newTab,
         isPrevDisabled,
