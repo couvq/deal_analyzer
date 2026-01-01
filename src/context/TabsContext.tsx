@@ -28,7 +28,11 @@ type ChangeAction = {
   newTab: TabType;
 };
 
-type TabAction = ChangeAction;
+type NextAction = {
+  type: "next";
+};
+
+type TabAction = ChangeAction | NextAction;
 
 const initialTabsState: TabsState = {
   activeTab: "propertyInfo",
@@ -69,6 +73,16 @@ const tabsReducer = (state: TabsState, action: TabAction): TabsState => {
         isPrevDisabled,
         isNextDisabled,
       };
+    }
+    case 'next': {
+      const nextTab = forwardTabs[state.activeTab] ?? state.activeTab
+      const isPrevDisabled = backwardTabs[nextTab] === null
+      const isNextDisabled = forwardTabs[nextTab] === null
+      return {
+        activeTab: nextTab,
+        isPrevDisabled,
+        isNextDisabled
+      }
     }
     default: {
       throw Error("Unknown action: " + action.type);
