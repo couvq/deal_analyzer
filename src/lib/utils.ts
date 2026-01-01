@@ -21,6 +21,7 @@ export const getDefaultValuesFromUrl = (): FormValues => {
     downPayment: 20,
     interestRate: 6, // TODO - this default could be a bit "smarter"
     loanTerm: 30,
+    monthlyRent: Number(urlParams.get('rentZestimate')) ?? 0
   };
 };
 

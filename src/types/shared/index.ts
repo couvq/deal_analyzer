@@ -7,4 +7,5 @@ export type FormValues = {
     downPayment: number;
     interestRate: number;
     loanTerm: number;
+    monthlyRent: number;
 }

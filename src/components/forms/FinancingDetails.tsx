@@ -40,7 +40,7 @@ const FinancingDetails = ({ register, control }: FinancingDetailsProps) => {
       </FieldSet>
       <Alert variant="default">
         <AlertTitle>Monthly mortgage payment</AlertTitle>
-        <AlertDescription>{monthlyPayment}</AlertDescription>
+        <AlertDescription>${monthlyPayment}</AlertDescription>
       </Alert>
     </>
   );

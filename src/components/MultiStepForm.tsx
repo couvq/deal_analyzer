@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { useTabs, useTabsDispatch, type TabType } from "@/context/TabsContext";
 import PaginationButtons from "./PaginationButtons";
 import FinancingDetails from "./forms/FinancingDetails";
+import IncomeProjections from "./forms/IncomeProjections";
 
 const MultiStepForm = () => {
   const { register, control } = useForm<FormValues>({
@@ -37,7 +38,9 @@ const MultiStepForm = () => {
         <TabsContent value="financing">
           <FinancingDetails register={register} control={control} />
         </TabsContent>
-        <TabsContent value="income">Income</TabsContent>
+        <TabsContent value="income">
+          <IncomeProjections register={register} control={control} />
+        </TabsContent>
         <TabsContent value="expenses">Expenses</TabsContent>
         <TabsContent value="analysis">
           <Analysis control={control} />
