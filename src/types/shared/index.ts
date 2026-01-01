@@ -4,4 +4,7 @@ export type FormValues = {
     numBeds: number;
     numBaths: number;
     squareFootage: number;
+    downPayment: number;
+    interestRate: number;
+    loanTerm: number;
 }

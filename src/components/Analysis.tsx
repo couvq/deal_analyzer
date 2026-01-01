@@ -2,11 +2,11 @@ import type { FormValues } from "@/types/shared";
 import { useWatch, type Control } from "react-hook-form";
 
 interface AnalysisProps {
-    control: Control<FormValues, any, FormValues>
+  control: Control<FormValues, any, FormValues>;
 }
 
 const Analysis = ({ control }: AnalysisProps) => {
-  const formValues = useWatch({ control: control });
+  const formValues = useWatch({ control });
 
   return (
     <>
