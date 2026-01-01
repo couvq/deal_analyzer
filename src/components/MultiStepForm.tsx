@@ -4,15 +4,19 @@ import { useForm } from "react-hook-form";
 import PropertyInfo from "./forms/PropertyInfo";
 import Analysis from "./Analysis";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { useTabs, useTabsDispatch } from "@/context/TabsContext";
 
 const MultiStepForm = () => {
   const { register, control } = useForm<FormValues>({
     defaultValues: getDefaultValuesFromUrl(),
   });
 
+  const { activeTab } = useTabs();
+  const dispatch = useTabsDispatch()
+
   return (
     <>
-      <Tabs defaultValue="propertyInfo">
+      <Tabs value={activeTab} onValueChange={(newTab) => dispatch({ type: 'change', newTab})} >
         <TabsList>
           <TabsTrigger value="propertyInfo">Property</TabsTrigger>
           <TabsTrigger value="analysis">Analysis</TabsTrigger>
