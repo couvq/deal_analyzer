@@ -36,14 +36,32 @@ const TabsDispatchContext = createContext<ActionDispatch<[action: TabAction]>>(
   () => {}
 );
 
+// keep track of next tab info for pagination
+const forwardTabs: Record<TabType, TabType | null> = {
+  propertyInfo: "analysis",
+  analysis: null,
+};
+
+// keep track of previous tab info for pagination
+const backwardTabs: Record<TabType, TabType | null> = {
+  propertyInfo: null,
+  analysis: "propertyInfo",
+};
+
 const tabsReducer = (state: TabsState, action: TabAction): TabsState => {
   switch (action.type) {
     case "change": {
+      const isPrevDisabled = backwardTabs[action.newTab] === null;
+      const isNextDisabled = forwardTabs[action.newTab] == null;
+      console.log({
+        newTab: action.newTab,
+        isPrevDisabled,
+        isNextDisabled,
+      });
       return {
         activeTab: action.newTab,
-        // todo - need to calculate this
-        isPrevDisabled: false,
-        isNextDisabled: false,
+        isPrevDisabled,
+        isNextDisabled,
       };
     }
     default: {
