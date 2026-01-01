@@ -7,7 +7,12 @@ const PaginationButtons = () => {
 
   return (
     <>
-      <Button disabled={isPrevDisabled}>Previous</Button>
+      <Button
+        disabled={isPrevDisabled}
+        onClick={() => dispatch({ type: "previous" })}
+      >
+        Previous
+      </Button>
       <Button
         disabled={isNextDisabled}
         onClick={() => dispatch({ type: "next" })}

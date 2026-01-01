@@ -28,11 +28,15 @@ type ChangeAction = {
   newTab: TabType;
 };
 
+type PreviousAction = {
+  type: "previous";
+};
+
 type NextAction = {
   type: "next";
 };
 
-type TabAction = ChangeAction | NextAction;
+type TabAction = ChangeAction | PreviousAction | NextAction;
 
 const initialTabsState: TabsState = {
   activeTab: "propertyInfo",
@@ -45,15 +49,6 @@ const TabsDispatchContext = createContext<ActionDispatch<[action: TabAction]>>(
   () => {}
 );
 
-// keep track of next tab info for pagination
-const forwardTabs: Record<TabType, TabType | null> = {
-  propertyInfo: "financing",
-  financing: "income",
-  income: "expenses",
-  expenses: "analysis",
-  analysis: null,
-};
-
 // keep track of previous tab info for pagination
 const backwardTabs: Record<TabType, TabType | null> = {
   propertyInfo: null,
@@ -61,6 +56,15 @@ const backwardTabs: Record<TabType, TabType | null> = {
   income: "financing",
   expenses: "income",
   analysis: "expenses",
+};
+
+// keep track of next tab info for pagination
+const forwardTabs: Record<TabType, TabType | null> = {
+  propertyInfo: "financing",
+  financing: "income",
+  income: "expenses",
+  expenses: "analysis",
+  analysis: null,
 };
 
 const tabsReducer = (state: TabsState, action: TabAction): TabsState => {
@@ -74,15 +78,25 @@ const tabsReducer = (state: TabsState, action: TabAction): TabsState => {
         isNextDisabled,
       };
     }
-    case 'next': {
-      const nextTab = forwardTabs[state.activeTab] ?? state.activeTab
-      const isPrevDisabled = backwardTabs[nextTab] === null
-      const isNextDisabled = forwardTabs[nextTab] === null
+    case "previous": {
+      const nextTab = backwardTabs[state.activeTab] ?? state.activeTab;
+      const isPrevDisabled = backwardTabs[nextTab] === null;
+      const isNextDisabled = forwardTabs[nextTab] === null;
       return {
         activeTab: nextTab,
         isPrevDisabled,
-        isNextDisabled
-      }
+        isNextDisabled,
+      };
+    }
+    case "next": {
+      const nextTab = forwardTabs[state.activeTab] ?? state.activeTab;
+      const isPrevDisabled = backwardTabs[nextTab] === null;
+      const isNextDisabled = forwardTabs[nextTab] === null;
+      return {
+        activeTab: nextTab,
+        isPrevDisabled,
+        isNextDisabled,
+      };
     }
     default: {
       throw Error("Unknown action: " + action.type);
