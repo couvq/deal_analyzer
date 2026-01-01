@@ -10,7 +10,12 @@ interface TabsProviderProps {
   children: ReactNode;
 }
 
-type TabType = "propertyInfo" | "analysis";
+export type TabType =
+  | "propertyInfo"
+  | "financing"
+  | "income"
+  | "expenses"
+  | "analysis";
 
 interface TabsState {
   activeTab: TabType;
@@ -28,7 +33,7 @@ type TabAction = ChangeAction;
 const initialTabsState: TabsState = {
   activeTab: "propertyInfo",
   isPrevDisabled: true,
-  isNextDisabled: true,
+  isNextDisabled: false,
 };
 
 const TabsContext = createContext<TabsState>(initialTabsState);
@@ -38,14 +43,20 @@ const TabsDispatchContext = createContext<ActionDispatch<[action: TabAction]>>(
 
 // keep track of next tab info for pagination
 const forwardTabs: Record<TabType, TabType | null> = {
-  propertyInfo: "analysis",
+  propertyInfo: "financing",
+  financing: "income",
+  income: "expenses",
+  expenses: "analysis",
   analysis: null,
 };
 
 // keep track of previous tab info for pagination
 const backwardTabs: Record<TabType, TabType | null> = {
   propertyInfo: null,
-  analysis: "propertyInfo",
+  financing: "propertyInfo",
+  income: "financing",
+  expenses: "income",
+  analysis: "expenses",
 };
 
 const tabsReducer = (state: TabsState, action: TabAction): TabsState => {

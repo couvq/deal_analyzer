@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import PropertyInfo from "./forms/PropertyInfo";
 import Analysis from "./Analysis";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { useTabs, useTabsDispatch } from "@/context/TabsContext";
+import { useTabs, useTabsDispatch, type TabType } from "@/context/TabsContext";
 import PaginationButtons from "./PaginationButtons";
 
 const MultiStepForm = () => {
@@ -13,18 +13,29 @@ const MultiStepForm = () => {
   });
 
   const { activeTab } = useTabs();
-  const dispatch = useTabsDispatch()
+  const dispatch = useTabsDispatch();
 
   return (
     <>
-      <Tabs value={activeTab} onValueChange={(newTab) => dispatch({ type: 'change', newTab})} >
+      <Tabs
+        value={activeTab}
+        onValueChange={(newTab) =>
+          dispatch({ type: "change", newTab: newTab as TabType })
+        }
+      >
         <TabsList>
           <TabsTrigger value="propertyInfo">Property</TabsTrigger>
+          <TabsTrigger value="financing">Financing</TabsTrigger>
+          <TabsTrigger value="income">Income</TabsTrigger>
+          <TabsTrigger value="expenses">Expenses</TabsTrigger>
           <TabsTrigger value="analysis">Analysis</TabsTrigger>
         </TabsList>
         <TabsContent value="propertyInfo">
           <PropertyInfo register={register} />
         </TabsContent>
+        <TabsContent value="financing">Financing</TabsContent>
+        <TabsContent value="income">Income</TabsContent>
+        <TabsContent value="expenses">Expenses</TabsContent>
         <TabsContent value="analysis">
           <Analysis control={control} />
         </TabsContent>
