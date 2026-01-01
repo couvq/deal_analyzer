@@ -23,6 +23,22 @@ const PropertyInfo = ({ register }: PropertyInfoProps) => {
             <FieldLabel htmlFor="address">Address</FieldLabel>
             <Input {...register("address")} />
           </Field>
+          <Field>
+            <FieldLabel htmlFor="purchasePrice">Purchase price</FieldLabel>
+            <Input type="number" {...register("purchasePrice")} />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="numBeds">Beds</FieldLabel>
+            <Input type="number" {...register("numBeds")} />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="numBaths">Baths</FieldLabel>
+            <Input type="number" {...register("numBaths")} />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="squareFootage">Square feet</FieldLabel>
+            <Input type="number" {...register("squareFootage")} />
+          </Field>
         </FieldGroup>
       </FieldSet>
     </>

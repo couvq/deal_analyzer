@@ -8,6 +8,7 @@ const MultiStepForm = () => {
   const { register, control } = useForm<FormValues>({
     defaultValues: getDefaultValuesFromUrl(),
   });
+  
   return (
     <>
       <PropertyInfo register={register} />
