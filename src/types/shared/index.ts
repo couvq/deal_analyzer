@@ -1,11 +1,18 @@
 export type FormValues = {
-    address: string;
-    purchasePrice: number;
-    numBeds: number;
-    numBaths: number;
-    squareFootage: number;
-    downPayment: number;
-    interestRate: number;
-    loanTerm: number;
-    monthlyRent: number;
-}
+  address: string;
+  purchasePrice: number;
+  numBeds: number;
+  numBaths: number;
+  squareFootage: number;
+  downPayment: number;
+  interestRate: number;
+  loanTerm: number;
+  monthlyRent: number;
+  annualPropertyTax: number;
+  annualInsurance: number;
+  vacancyRate: number;
+  maintenanceRate: number;
+  capexRate: number;
+  utilities: number;
+  miscExpenses: number;
+};

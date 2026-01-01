@@ -1,14 +1,13 @@
 import type { FormValues } from "@/types/shared";
 import { useWatch, type Control, type UseFormRegister } from "react-hook-form";
 import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
+    Field,
+    FieldDescription,
+    FieldGroup,
+    FieldLabel,
+    FieldLegend,
+    FieldSet,
 } from "../ui/field";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Input } from "../ui/input";
 
 interface IncomeProjectionsProps {
@@ -35,10 +34,6 @@ const IncomeProjections = ({ register, control }: IncomeProjectionsProps) => {
           </Field>
         </FieldGroup>
       </FieldSet>
-      <Alert variant="default">
-        <AlertTitle>Monthly rent</AlertTitle>
-        <AlertDescription>${monthlyRent}</AlertDescription>
-      </Alert>
     </>
   );
 };
