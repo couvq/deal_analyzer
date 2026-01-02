@@ -14,9 +14,17 @@ interface PropertyInfoProps {
 }
 
 const PropertyInfo = ({ register }: PropertyInfoProps) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const zillowHomeDetailsLink = urlParams.get("zillowHomeDetailsLink");
+
   return (
     <FieldSet>
       <FieldLegend>Property information</FieldLegend>
+      {zillowHomeDetailsLink && (
+        <a target="_blank" href={zillowHomeDetailsLink}>
+          Zillow home details link
+        </a>
+      )}
       <FieldGroup>
         <Field>
           <FieldLabel htmlFor="address">Address</FieldLabel>
