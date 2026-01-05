@@ -28,9 +28,12 @@ export const getDefaultValuesFromUrl = (): FormValues => {
     maintenanceRate: 8,
     capexRate: 8,
     utilities: 0,
-    miscExpenses: 0
+    miscExpenses: 0,
   };
 };
+
+export const roundTwoDecimalPlaces = (numberToRound: number): number =>
+  Math.round(numberToRound * 100) / 100;
 
 /**
  * Step-by-Step Calculation
@@ -70,5 +73,5 @@ export const calculateMonthlyMortgagePayment = (
   const monthlyPayment = principal * (numerator / denominator);
 
   // round to two decimal places
-  return Math.round(monthlyPayment * 100) / 100;
+  return roundTwoDecimalPlaces(monthlyPayment);
 };

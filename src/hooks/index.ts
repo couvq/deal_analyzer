@@ -1,4 +1,7 @@
-import { calculateMonthlyMortgagePayment } from "@/lib/utils";
+import {
+  calculateMonthlyMortgagePayment,
+  roundTwoDecimalPlaces,
+} from "@/lib/utils";
 import type { FormValues } from "@/types/shared";
 import { useWatch, type Control } from "react-hook-form";
 
@@ -37,6 +40,7 @@ export const useMonthlyMortgagePayment = (
 
 export interface UseAnalyticsResponse {
   monthlyCashFlow: number;
+  cocReturn: number;
 }
 
 export const useAnalytics = (
@@ -49,6 +53,16 @@ export const useAnalytics = (
   const monthlyIncome = monthlyRent;
 
   const monthlyMortgagePayment = useMonthlyMortgagePayment(control);
+  const purchasePrice = useWatch({
+    name: "purchasePrice",
+    control,
+  });
+  const downPaymentPercentage =
+    useWatch({
+      name: "downPayment",
+      control,
+    }) * 0.01;
+  const totalCashInvested = downPaymentPercentage * purchasePrice; // todo - there are usually other costs like renovation costs, closing costs, etc.
   const monthlyPropertyTax =
     useWatch({
       name: "annualPropertyTax",
@@ -93,7 +107,12 @@ export const useAnalytics = (
     monthlyMaintenance +
     monthlyCapex +
     monthlyUtilities;
-  const monthlyCashFlow =
-    Math.round((monthlyIncome - monthlyExpenses) * 100) / 100; // round to two decimal places
-  return { monthlyCashFlow };
+
+  const monthlyCashFlow = roundTwoDecimalPlaces(
+    monthlyIncome - monthlyExpenses
+  );
+  const cocReturn = roundTwoDecimalPlaces(
+    ((12 * monthlyCashFlow) / totalCashInvested) * 100
+  );
+  return { monthlyCashFlow, cocReturn };
 };

@@ -8,12 +8,13 @@ interface AnalysisProps {
 
 const Analysis = ({ control }: AnalysisProps) => {
   const formValues = useWatch({ control });
-  const { monthlyCashFlow } = useAnalytics(control);
+  const { monthlyCashFlow, cocReturn } = useAnalytics(control);
 
   return (
     <>
       <h4>Current Form Values (Display Component)</h4>
       <p>Monthly cash flow: ${monthlyCashFlow}</p>
+      <p>Cash on cash return: {cocReturn}%</p>
       <pre>{JSON.stringify(formValues, null, 2)}</pre>
     </>
   );
