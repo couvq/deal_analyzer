@@ -34,3 +34,66 @@ export const useMonthlyMortgagePayment = (
   );
   return monthlyPayment;
 };
+
+export interface UseAnalyticsResponse {
+  monthlyCashFlow: number;
+}
+
+export const useAnalytics = (
+  control: Control<FormValues, any, FormValues>
+): UseAnalyticsResponse => {
+  const monthlyRent = useWatch({
+    name: "monthlyRent",
+    control,
+  });
+  const monthlyIncome = monthlyRent;
+
+  const monthlyMortgagePayment = useMonthlyMortgagePayment(control);
+  const monthlyPropertyTax =
+    useWatch({
+      name: "annualPropertyTax",
+      control,
+    }) / 12;
+  const monthlyInsurance =
+    useWatch({
+      name: "annualInsurance",
+      control,
+    }) / 12;
+  const monthlyVacancy =
+    useWatch({
+      name: "vacancyRate",
+      control,
+    }) *
+    0.01 *
+    monthlyRent;
+  const monthlyMaintenance =
+    useWatch({
+      name: "maintenanceRate",
+      control,
+    }) *
+    0.01 *
+    monthlyRent;
+  const monthlyCapex =
+    useWatch({
+      name: "capexRate",
+      control,
+    }) *
+    0.01 *
+    monthlyRent;
+  const monthlyUtilities = useWatch({
+    name: "utilities",
+    control,
+  });
+
+  const monthlyExpenses =
+    monthlyMortgagePayment +
+    monthlyPropertyTax +
+    monthlyInsurance +
+    monthlyVacancy +
+    monthlyMaintenance +
+    monthlyCapex +
+    monthlyUtilities;
+  const monthlyCashFlow =
+    Math.round((monthlyIncome - monthlyExpenses) * 100) / 100; // round to two decimal places
+  return { monthlyCashFlow };
+};
