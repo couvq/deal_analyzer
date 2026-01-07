@@ -9,6 +9,7 @@ import PaginationButtons from "./PaginationButtons";
 import FinancingDetails from "./forms/FinancingDetails";
 import IncomeProjections from "./forms/IncomeProjections";
 import OperatingExpenses from "./forms/OperatingExpenses";
+import { Card, CardFooter } from "./ui/card";
 
 const MultiStepForm = () => {
   const { register, control } = useForm<FormValues>({
@@ -19,7 +20,7 @@ const MultiStepForm = () => {
   const dispatch = useTabsDispatch();
 
   return (
-    <>
+    <Card className="p-0">
       <Tabs
         value={activeTab}
         onValueChange={(newTab) =>
@@ -49,8 +50,10 @@ const MultiStepForm = () => {
           <Analysis control={control} />
         </TabsContent>
       </Tabs>
-      <PaginationButtons />
-    </>
+      <CardFooter>
+        <PaginationButtons />
+      </CardFooter>
+    </Card>
   );
 };
 

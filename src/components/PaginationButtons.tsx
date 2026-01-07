@@ -6,7 +6,7 @@ const PaginationButtons = () => {
   const dispatch = useTabsDispatch();
 
   return (
-    <>
+    <div className="w-full flex flex-row justify-between items-center">
       <Button
         disabled={isPrevDisabled}
         onClick={() => dispatch({ type: "previous" })}
@@ -19,7 +19,7 @@ const PaginationButtons = () => {
       >
         Next
       </Button>
-    </>
+    </div>
   );
 };
 
