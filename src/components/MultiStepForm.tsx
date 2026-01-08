@@ -34,23 +34,25 @@ const MultiStepForm = () => {
           <TabsTrigger value="expenses">Expenses</TabsTrigger>
           <TabsTrigger value="analysis">Analysis</TabsTrigger>
         </TabsList>
-        <TabsContent value="propertyInfo">
-          <PropertyInfo register={register} />
-        </TabsContent>
-        <TabsContent value="financing">
-          <FinancingDetails register={register} control={control} />
-        </TabsContent>
-        <TabsContent value="income">
-          <IncomeProjections register={register} control={control} />
-        </TabsContent>
-        <TabsContent value="expenses">
-          <OperatingExpenses register={register} />
-        </TabsContent>
-        <TabsContent value="analysis">
-          <Analysis control={control} />
-        </TabsContent>
+        <div className="p-4">
+          <TabsContent value="propertyInfo">
+            <PropertyInfo register={register} />
+          </TabsContent>
+          <TabsContent value="financing">
+            <FinancingDetails register={register} control={control} />
+          </TabsContent>
+          <TabsContent value="income">
+            <IncomeProjections register={register} control={control} />
+          </TabsContent>
+          <TabsContent value="expenses">
+            <OperatingExpenses register={register} />
+          </TabsContent>
+          <TabsContent value="analysis">
+            <Analysis control={control} />
+          </TabsContent>
+        </div>
       </Tabs>
-      <CardFooter>
+      <CardFooter className="pb-4">
         <PaginationButtons />
       </CardFooter>
     </Card>
