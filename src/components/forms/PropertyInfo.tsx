@@ -21,7 +21,11 @@ const PropertyInfo = ({ register }: PropertyInfoProps) => {
     <FieldSet>
       <FieldLegend>Property information</FieldLegend>
       {zillowHomeDetailsLink && (
-        <a target="_blank" href={zillowHomeDetailsLink}>
+        <a
+          target="_blank"
+          href={zillowHomeDetailsLink}
+          className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+        >
           Zillow home details link
         </a>
       )}
