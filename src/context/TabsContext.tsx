@@ -6,26 +6,26 @@ import {
   type ReactNode,
 } from "react";
 
-interface TabsProviderProps {
+interface StepProviderProps {
   children: ReactNode;
 }
 
-export type TabType =
+export type StepType =
   | "propertyInfo"
   | "financing"
   | "income"
   | "expenses"
   | "analysis";
 
-interface TabsState {
-  activeTab: TabType;
+interface StepState {
+  activeStep: StepType;
   isPrevDisabled: boolean;
   isNextDisabled: boolean;
 }
 
 type ChangeAction = {
   type: "change";
-  newTab: TabType;
+  newStep: StepType;
 };
 
 type PreviousAction = {
@@ -36,21 +36,21 @@ type NextAction = {
   type: "next";
 };
 
-type TabAction = ChangeAction | PreviousAction | NextAction;
+type StepAction = ChangeAction | PreviousAction | NextAction;
 
-const initialTabsState: TabsState = {
-  activeTab: "propertyInfo",
+const initialStepState: StepState = {
+  activeStep: "propertyInfo",
   isPrevDisabled: true,
   isNextDisabled: false,
 };
 
-const TabsContext = createContext<TabsState>(initialTabsState);
-const TabsDispatchContext = createContext<ActionDispatch<[action: TabAction]>>(
+const StepContext = createContext<StepState>(initialStepState);
+const StepDispatchContext = createContext<ActionDispatch<[action: StepAction]>>(
   () => {}
 );
 
 // keep track of previous tab info for pagination
-const backwardTabs: Record<TabType, TabType | null> = {
+const backwardSteps: Record<StepType, StepType | null> = {
   propertyInfo: null,
   financing: "propertyInfo",
   income: "financing",
@@ -59,7 +59,7 @@ const backwardTabs: Record<TabType, TabType | null> = {
 };
 
 // keep track of next tab info for pagination
-const forwardTabs: Record<TabType, TabType | null> = {
+const forwardSteps: Record<StepType, StepType | null> = {
   propertyInfo: "financing",
   financing: "income",
   income: "expenses",
@@ -67,57 +67,57 @@ const forwardTabs: Record<TabType, TabType | null> = {
   analysis: null,
 };
 
-const tabsReducer = (state: TabsState, action: TabAction): TabsState => {
+const stepReducer = (state: StepState, action: StepAction): StepState => {
   switch (action.type) {
     case "change": {
-      const isPrevDisabled = backwardTabs[action.newTab] === null;
-      const isNextDisabled = forwardTabs[action.newTab] == null;
+      const isPrevDisabled = backwardSteps[action.newStep] === null;
+      const isNextDisabled = forwardSteps[action.newStep] == null;
       return {
-        activeTab: action.newTab,
+        activeStep: action.newStep,
         isPrevDisabled,
         isNextDisabled,
       };
     }
     case "previous": {
-      const nextTab = backwardTabs[state.activeTab] ?? state.activeTab;
-      const isPrevDisabled = backwardTabs[nextTab] === null;
-      const isNextDisabled = forwardTabs[nextTab] === null;
+      const nextStep = backwardSteps[state.activeStep] ?? state.activeStep;
+      const isPrevDisabled = backwardSteps[nextStep] === null;
+      const isNextDisabled = forwardSteps[nextStep] === null;
       return {
-        activeTab: nextTab,
+        activeStep: nextStep,
         isPrevDisabled,
         isNextDisabled,
       };
     }
     case "next": {
-      const nextTab = forwardTabs[state.activeTab] ?? state.activeTab;
-      const isPrevDisabled = backwardTabs[nextTab] === null;
-      const isNextDisabled = forwardTabs[nextTab] === null;
+      const nextStep = forwardSteps[state.activeStep] ?? state.activeStep;
+      const isPrevDisabled = backwardSteps[nextStep] === null;
+      const isNextDisabled = forwardSteps[nextStep] === null;
       return {
-        activeTab: nextTab,
+        activeStep: nextStep,
         isPrevDisabled,
         isNextDisabled,
       };
     }
     default: {
-      throw Error("Unknown action: " + action.type);
+      throw Error("Unknown action: " + JSON.stringify(action));
     }
   }
 };
 
-export const TabsProvider = ({ children }: TabsProviderProps) => {
-  const [state, dispatch] = useReducer(tabsReducer, initialTabsState);
+export const StepProvider = ({ children }: StepProviderProps) => {
+  const [state, dispatch] = useReducer(stepReducer, initialStepState);
 
   return (
-    <TabsContext value={state}>
-      <TabsDispatchContext value={dispatch}>{children}</TabsDispatchContext>
-    </TabsContext>
+    <StepContext value={state}>
+      <StepDispatchContext value={dispatch}>{children}</StepDispatchContext>
+    </StepContext>
   );
 };
 
-export const useTabs = () => {
-  return useContext(TabsContext);
+export const useStep = () => {
+  return useContext(StepContext);
 };
 
-export const useTabsDispatch = () => {
-  return useContext(TabsDispatchContext);
+export const useStepDispatch = () => {
+  return useContext(StepDispatchContext);
 };

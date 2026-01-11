@@ -1,5 +1,5 @@
 import MultiStepForm from "@/components/MultiStepForm";
-import { TabsProvider } from "./context/TabsContext";
+import { StepProvider } from "./context/TabsContext";
 
 const App = () => {
   return (
@@ -8,9 +8,9 @@ const App = () => {
         <h1 className="text-4xl mb-2">Deal analyzer</h1>
         <p>Analyze investment properties in seconds.</p>
       </div>
-      <TabsProvider>
+      <StepProvider>
         <MultiStepForm />
-      </TabsProvider>
+      </StepProvider>
     </div>
   );
 };

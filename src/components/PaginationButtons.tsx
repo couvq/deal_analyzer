@@ -1,9 +1,9 @@
-import { useTabs, useTabsDispatch } from "@/context/TabsContext";
+import { useStep, useStepDispatch } from "@/context/TabsContext";
 import { Button } from "./ui/button";
 
 const PaginationButtons = () => {
-  const { isPrevDisabled, isNextDisabled } = useTabs();
-  const dispatch = useTabsDispatch();
+  const { isPrevDisabled, isNextDisabled } = useStep();
+  const dispatch = useStepDispatch();
 
   return (
     <div className="w-full flex flex-row justify-between items-center">

@@ -1,30 +1,30 @@
+import { useStep, useStepDispatch, type StepType } from "@/context/TabsContext";
 import { getDefaultValuesFromUrl } from "@/lib/utils";
 import type { FormValues } from "@/types/shared";
 import { useForm } from "react-hook-form";
-import PropertyInfo from "./forms/PropertyInfo";
 import Analysis from "./Analysis";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { useTabs, useTabsDispatch, type TabType } from "@/context/TabsContext";
 import PaginationButtons from "./PaginationButtons";
 import FinancingDetails from "./forms/FinancingDetails";
 import IncomeProjections from "./forms/IncomeProjections";
 import OperatingExpenses from "./forms/OperatingExpenses";
+import PropertyInfo from "./forms/PropertyInfo";
 import { Card, CardFooter } from "./ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 
 const MultiStepForm = () => {
   const { register, control } = useForm<FormValues>({
     defaultValues: getDefaultValuesFromUrl(),
   });
 
-  const { activeTab } = useTabs();
-  const dispatch = useTabsDispatch();
+  const { activeStep } = useStep();
+  const dispatch = useStepDispatch();
 
   return (
     <Card className="p-0">
       <Tabs
-        value={activeTab}
-        onValueChange={(newTab) =>
-          dispatch({ type: "change", newTab: newTab as TabType })
+        value={activeStep}
+        onValueChange={(newStep) =>
+          dispatch({ type: "change", newStep: newStep as StepType })
         }
       >
         <TabsList>
