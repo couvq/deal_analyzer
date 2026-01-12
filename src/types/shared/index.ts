@@ -1,3 +1,8 @@
+export type Unit = {
+  name: string;
+  monthlyRent: number;
+};
+
 export type FormValues = {
   address: string;
   purchasePrice: number;
@@ -15,4 +20,5 @@ export type FormValues = {
   capexRate: number;
   utilities: number;
   miscExpenses: number;
+  units: Unit[];
 };

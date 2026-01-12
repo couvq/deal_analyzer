@@ -38,6 +38,18 @@ export const useMonthlyMortgagePayment = (
   return monthlyPayment;
 };
 
+export const useAnnualIncome = (
+  control: Control<FormValues, any, FormValues>
+): number => {
+  const units = useWatch({
+    name: "units",
+    control,
+  });
+
+  const annualIncome = 12 * units.reduce((acc, cur) => acc + Number(cur.monthlyRent), 0)
+  return annualIncome
+};
+
 export interface UseAnalyticsResponse {
   monthlyCashFlow: number;
   cocReturn: number;
@@ -46,11 +58,8 @@ export interface UseAnalyticsResponse {
 export const useAnalytics = (
   control: Control<FormValues, any, FormValues>
 ): UseAnalyticsResponse => {
-  const monthlyRent = useWatch({
-    name: "monthlyRent",
-    control,
-  });
-  const monthlyIncome = monthlyRent;
+  const annualIncome = useAnnualIncome(control);
+  const monthlyIncome = annualIncome / 12;
 
   const monthlyMortgagePayment = useMonthlyMortgagePayment(control);
   const purchasePrice = useWatch({
@@ -79,21 +88,21 @@ export const useAnalytics = (
       control,
     }) *
     0.01 *
-    monthlyRent;
+    monthlyIncome;
   const monthlyMaintenance =
     useWatch({
       name: "maintenanceRate",
       control,
     }) *
     0.01 *
-    monthlyRent;
+    monthlyIncome;
   const monthlyCapex =
     useWatch({
       name: "capexRate",
       control,
     }) *
     0.01 *
-    monthlyRent;
+    monthlyIncome;
   const monthlyUtilities = useWatch({
     name: "utilities",
     control,

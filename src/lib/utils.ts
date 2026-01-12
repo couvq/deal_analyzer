@@ -1,4 +1,4 @@
-import type { FormValues } from "@/types/shared";
+import type { FormValues, Unit } from "@/types/shared";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -12,6 +12,8 @@ export function cn(...inputs: ClassValue[]) {
  */
 export const getDefaultValuesFromUrl = (): FormValues => {
   const urlParams = new URLSearchParams(window.location.search);
+  const rentZestimate = Number(urlParams.get("rentZestimate")) ?? 0;
+  const units: Unit[] = [{ name: "Unit 1", monthlyRent: rentZestimate }];
   return {
     address: urlParams.get("address") ?? "",
     purchasePrice: Number(urlParams.get("price")) ?? 0,
@@ -21,7 +23,7 @@ export const getDefaultValuesFromUrl = (): FormValues => {
     downPayment: 20,
     interestRate: 6, // TODO - this default could be a bit "smarter" since we know what the going interest rate is
     loanTerm: 30,
-    monthlyRent: Number(urlParams.get("rentZestimate")) ?? 0,
+    monthlyRent: rentZestimate,
     annualPropertyTax: 0,
     annualInsurance: 0,
     vacancyRate: 8,
@@ -29,6 +31,7 @@ export const getDefaultValuesFromUrl = (): FormValues => {
     capexRate: 8,
     utilities: 0,
     miscExpenses: 0,
+    units,
   };
 };
 
