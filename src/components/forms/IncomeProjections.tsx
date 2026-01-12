@@ -1,21 +1,20 @@
+import { useAnnualIncome } from "@/hooks";
 import type { FormValues } from "@/types/shared";
 import {
   useFieldArray,
-  useWatch,
   type Control,
   type UseFormRegister,
 } from "react-hook-form";
+import { Button } from "../ui/button";
 import {
   Field,
-  FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldLegend,
   FieldSet,
 } from "../ui/field";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { useAnnualIncome } from "@/hooks";
+import { Plus } from "lucide-react";
 
 interface IncomeProjectionsProps {
   register: UseFormRegister<FormValues>;
@@ -48,7 +47,9 @@ const IncomeProjections = ({ register, control }: IncomeProjectionsProps) => {
             </Field>
           ))}
         </FieldGroup>
-        <Button onClick={handleAddUnit}>Add unit</Button>
+        <Button onClick={handleAddUnit}>
+          Add unit <Plus />
+        </Button>
         <p>${annualIncome} annually</p>
       </FieldSet>
     </>
