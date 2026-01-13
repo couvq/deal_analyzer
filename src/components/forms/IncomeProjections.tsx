@@ -14,7 +14,7 @@ import {
   FieldSet,
 } from "../ui/field";
 import { Input } from "../ui/input";
-import { Plus } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 
 interface IncomeProjectionsProps {
   register: UseFormRegister<FormValues>;
@@ -22,15 +22,16 @@ interface IncomeProjectionsProps {
 }
 
 const IncomeProjections = ({ register, control }: IncomeProjectionsProps) => {
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: "units",
     control,
   });
   const annualIncome = useAnnualIncome(control);
 
-  const handleAddUnit = () => {
+  const handleAddUnit = () =>
     append({ name: `Unit ${fields.length + 1}`, monthlyRent: 0 });
-  };
+
+  const handleDeleteUnit = (index: number) => remove(index);
 
   return (
     <>
@@ -39,11 +40,16 @@ const IncomeProjections = ({ register, control }: IncomeProjectionsProps) => {
         <FieldGroup>
           {fields.map((unit, index) => (
             <Field key={unit.id}>
-              <FieldLabel htmlFor={unit.id}>{unit.name}</FieldLabel>
+              <FieldLabel htmlFor={`units.${index}.monthlyRent`}>
+                {unit.name}
+              </FieldLabel>
               <Input
                 type="number"
                 {...register(`units.${index}.monthlyRent`)}
               />
+              <Button onClick={() => handleDeleteUnit(index)}>
+                <Trash />
+              </Button>
             </Field>
           ))}
         </FieldGroup>
