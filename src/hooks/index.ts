@@ -46,32 +46,17 @@ export const useAnnualIncome = (
     control,
   });
 
-  const annualIncome = 12 * units.reduce((acc, cur) => acc + Number(cur.monthlyRent), 0)
-  return annualIncome
+  const annualIncome =
+    12 * units.reduce((acc, cur) => acc + Number(cur.monthlyRent), 0);
+  return annualIncome;
 };
 
-export interface UseAnalyticsResponse {
-  monthlyCashFlow: number;
-  cocReturn: number;
-}
-
-export const useAnalytics = (
+export const useAnnualExpenses = (
   control: Control<FormValues, any, FormValues>
-): UseAnalyticsResponse => {
+): number => {
   const annualIncome = useAnnualIncome(control);
   const monthlyIncome = annualIncome / 12;
-
   const monthlyMortgagePayment = useMonthlyMortgagePayment(control);
-  const purchasePrice = useWatch({
-    name: "purchasePrice",
-    control,
-  });
-  const downPaymentPercentage =
-    useWatch({
-      name: "downPayment",
-      control,
-    }) * 0.01;
-  const totalCashInvested = downPaymentPercentage * purchasePrice; // todo - there are usually other costs like renovation costs, closing costs, etc.
   const monthlyPropertyTax =
     useWatch({
       name: "annualPropertyTax",
@@ -116,6 +101,34 @@ export const useAnalytics = (
     monthlyMaintenance +
     monthlyCapex +
     monthlyUtilities;
+
+  const annualExpenses = monthlyExpenses * 12;
+  return annualExpenses;
+};
+
+export interface UseAnalyticsResponse {
+  monthlyCashFlow: number;
+  cocReturn: number;
+}
+
+export const useAnalytics = (
+  control: Control<FormValues, any, FormValues>
+): UseAnalyticsResponse => {
+  const annualIncome = useAnnualIncome(control);
+  const monthlyIncome = annualIncome / 12;
+
+  const purchasePrice = useWatch({
+    name: "purchasePrice",
+    control,
+  });
+  const downPaymentPercentage =
+    useWatch({
+      name: "downPayment",
+      control,
+    }) * 0.01;
+  const totalCashInvested = downPaymentPercentage * purchasePrice; // todo - there are usually other costs like renovation costs, closing costs, etc.
+  const annualExpenses = useAnnualExpenses(control)
+  const monthlyExpenses = annualExpenses / 12;
 
   const monthlyCashFlow = roundTwoDecimalPlaces(
     monthlyIncome - monthlyExpenses
