@@ -32,6 +32,9 @@ export const getDefaultValuesFromUrl = (): FormValues => {
     utilities: 0,
     miscExpenses: 0,
     units,
+    annualRentGrowth: 0,
+    annualAppreciation: 0,
+    annualOperatingExpenseIncrease: 0
   };
 };
 

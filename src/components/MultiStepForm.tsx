@@ -50,7 +50,7 @@ const MultiStepForm = () => {
             <OperatingExpenses register={register} />
           </TabsContent>
           <TabsContent value="growthAssumptions">
-            <GrowthAssumptions />
+            <GrowthAssumptions register={register} />
           </TabsContent>
           <TabsContent value="analysis">
             <Analysis control={control} />
