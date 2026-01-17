@@ -10,6 +10,7 @@ import OperatingExpenses from "./forms/OperatingExpenses";
 import PropertyInfo from "./forms/PropertyInfo";
 import { Card, CardFooter } from "./ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import GrowthAssumptions from "./forms/GrowthAssumptions";
 
 const MultiStepForm = () => {
   const { register, control } = useForm<FormValues>({
@@ -32,6 +33,7 @@ const MultiStepForm = () => {
           <TabsTrigger value="financing">Financing</TabsTrigger>
           <TabsTrigger value="income">Income</TabsTrigger>
           <TabsTrigger value="expenses">Expenses</TabsTrigger>
+          <TabsTrigger value="growthAssumptions">Growth</TabsTrigger>
           <TabsTrigger value="analysis">Analysis</TabsTrigger>
         </TabsList>
         <div className="p-4">
@@ -46,6 +48,9 @@ const MultiStepForm = () => {
           </TabsContent>
           <TabsContent value="expenses">
             <OperatingExpenses register={register} />
+          </TabsContent>
+          <TabsContent value="growthAssumptions">
+            <GrowthAssumptions register={register} />
           </TabsContent>
           <TabsContent value="analysis">
             <Analysis control={control} />

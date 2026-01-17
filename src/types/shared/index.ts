@@ -21,4 +21,7 @@ export type FormValues = {
   utilities: number;
   miscExpenses: number;
   units: Unit[];
+  annualRentGrowth: number;
+  annualAppreciation: number;
+  annualOperatingExpenseIncrease: number;
 };

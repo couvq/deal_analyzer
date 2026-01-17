@@ -15,6 +15,7 @@ export type StepType =
   | "financing"
   | "income"
   | "expenses"
+  | 'growthAssumptions'
   | "analysis";
 
 interface StepState {
@@ -52,10 +53,11 @@ const StepDispatchContext = createContext<ActionDispatch<[action: StepAction]>>(
 // keep track of previous tab info for pagination
 const backwardSteps: Record<StepType, StepType | null> = {
   propertyInfo: null,
-  financing: "propertyInfo",
-  income: "financing",
-  expenses: "income",
-  analysis: "expenses",
+  financing: 'propertyInfo',
+  income: 'financing',
+  expenses: 'income',
+  growthAssumptions: 'expenses',
+  analysis: 'growthAssumptions'
 };
 
 // keep track of next tab info for pagination
@@ -63,7 +65,8 @@ const forwardSteps: Record<StepType, StepType | null> = {
   propertyInfo: "financing",
   financing: "income",
   income: "expenses",
-  expenses: "analysis",
+  expenses: "growthAssumptions",
+  growthAssumptions: 'analysis',
   analysis: null,
 };
 
