@@ -1,6 +1,7 @@
-import { useAnalytics, useLongTermCashflow } from "@/hooks";
+import { useAnalytics } from "@/hooks";
 import type { FormValues } from "@/types/shared";
-import { useWatch, type Control } from "react-hook-form";
+import { type Control } from "react-hook-form";
+import CashflowLineChart from "./charts/CashflowLineChart";
 
 interface AnalysisProps {
   control: Control<FormValues, any, FormValues>;
@@ -8,12 +9,12 @@ interface AnalysisProps {
 
 const Analysis = ({ control }: AnalysisProps) => {
   const { monthlyCashFlow, cocReturn } = useAnalytics(control);
-  const longTermCashflow = useLongTermCashflow(control);
 
   return (
     <>
       <p>Monthly cash flow: ${monthlyCashFlow}</p>
       <p>Cash on cash return: {cocReturn}%</p>
+      <CashflowLineChart control={control} />
     </>
   );
 };
