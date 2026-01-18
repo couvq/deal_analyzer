@@ -140,7 +140,7 @@ export const useAnalytics = (
   return { monthlyCashFlow, cocReturn };
 };
 
-export const useLongTermCashflow = (
+export const useCashFlowLineChart = (
   control: Control<FormValues, any, FormValues>
 ): CashflowLineChartMetadata[] => {
   const annualIncome = useAnnualIncome(control);
@@ -159,7 +159,7 @@ export const useLongTermCashflow = (
       name: "annualOperatingExpenseIncrease",
       control,
     }) * 0.01;
-    
+
   return buildCashflowForLoanPeriod(
     annualIncome,
     annualExpenses,
