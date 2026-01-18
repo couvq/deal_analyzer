@@ -1,4 +1,8 @@
-import type { FormValues, Unit } from "@/types/shared";
+import type {
+  CashflowLineChartMetadata,
+  FormValues,
+  Unit,
+} from "@/types/shared";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -34,7 +38,7 @@ export const getDefaultValuesFromUrl = (): FormValues => {
     units,
     annualRentGrowth: 0,
     annualAppreciation: 0,
-    annualOperatingExpenseIncrease: 0
+    annualOperatingExpenseIncrease: 0,
   };
 };
 
@@ -80,4 +84,33 @@ export const calculateMonthlyMortgagePayment = (
 
   // round to two decimal places
   return roundTwoDecimalPlaces(monthlyPayment);
+};
+
+export const buildCashflowForLoanPeriod = (
+  startingIncome: number,
+  startingExpenses: number,
+  loanPeriod: number,
+  annualRentGrowth: number,
+  annualOperatingExpenseIncrease: number
+): CashflowLineChartMetadata[] => {
+  const firstYearCashFlow: CashflowLineChartMetadata = {
+    income: startingIncome,
+    expenses: startingExpenses,
+    cashFlow: startingIncome - startingExpenses
+  }
+  const cashflowOverTime: CashflowLineChartMetadata[] = [firstYearCashFlow]
+
+  for(let i = 0; i < loanPeriod - 1; i++) {
+    const prevYearMetaData = cashflowOverTime[cashflowOverTime.length - 1]
+    const curYearIncome = prevYearMetaData.income + (prevYearMetaData.income * annualRentGrowth)
+    const curYearExpenses = prevYearMetaData.expenses + (prevYearMetaData.expenses * annualOperatingExpenseIncrease)
+    const curYearCashflow = curYearIncome - curYearExpenses
+    cashflowOverTime.push({
+      income: curYearIncome,
+      expenses: curYearExpenses,
+      cashFlow: curYearCashflow
+    })
+  }
+
+  return cashflowOverTime
 };
