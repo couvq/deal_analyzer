@@ -1,8 +1,9 @@
 import {
+  buildCashflowForLoanPeriod,
   calculateMonthlyMortgagePayment,
   roundTwoDecimalPlaces,
 } from "@/lib/utils";
-import type { FormValues } from "@/types/shared";
+import type { CashflowLineChartMetadata, FormValues } from "@/types/shared";
 import { useWatch, type Control } from "react-hook-form";
 
 export const useMonthlyMortgagePayment = (
@@ -127,7 +128,7 @@ export const useAnalytics = (
       control,
     }) * 0.01;
   const totalCashInvested = downPaymentPercentage * purchasePrice; // todo - there are usually other costs like renovation costs, closing costs, etc.
-  const annualExpenses = useAnnualExpenses(control)
+  const annualExpenses = useAnnualExpenses(control);
   const monthlyExpenses = annualExpenses / 12;
 
   const monthlyCashFlow = roundTwoDecimalPlaces(
@@ -137,4 +138,33 @@ export const useAnalytics = (
     ((12 * monthlyCashFlow) / totalCashInvested) * 100
   );
   return { monthlyCashFlow, cocReturn };
+};
+
+export const useLongTermCashflow = (
+  control: Control<FormValues, any, FormValues>
+): CashflowLineChartMetadata[] => {
+  const annualIncome = useAnnualIncome(control);
+  const annualExpenses = useAnnualExpenses(control);
+  const loanTermInYears = useWatch({
+    name: "loanTerm",
+    control,
+  });
+  const annualRentGrowth =
+    useWatch({
+      name: "annualRentGrowth",
+      control,
+    }) * 0.01;
+  const annualOperatingExpenseIncrease =
+    useWatch({
+      name: "annualOperatingExpenseIncrease",
+      control,
+    }) * 0.01;
+    
+  return buildCashflowForLoanPeriod(
+    annualIncome,
+    annualExpenses,
+    loanTermInYears,
+    annualRentGrowth,
+    annualOperatingExpenseIncrease
+  );
 };

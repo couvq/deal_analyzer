@@ -1,4 +1,4 @@
-import { useAnalytics } from "@/hooks";
+import { useAnalytics, useLongTermCashflow } from "@/hooks";
 import type { FormValues } from "@/types/shared";
 import { useWatch, type Control } from "react-hook-form";
 
@@ -8,10 +8,7 @@ interface AnalysisProps {
 
 const Analysis = ({ control }: AnalysisProps) => {
   const { monthlyCashFlow, cocReturn } = useAnalytics(control);
-
-  // todo - remove, used for debugging
-  const formValues = useWatch({ control });
-  console.log(formValues)
+  const longTermCashflow = useLongTermCashflow(control);
 
   return (
     <>

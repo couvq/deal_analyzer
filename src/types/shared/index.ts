@@ -25,3 +25,9 @@ export type FormValues = {
   annualAppreciation: number;
   annualOperatingExpenseIncrease: number;
 };
+
+export type CashflowLineChartMetadata = {
+  income: number;
+  expenses: number;
+  cashFlow: number;
+};
