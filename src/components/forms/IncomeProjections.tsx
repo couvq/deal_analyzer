@@ -39,21 +39,23 @@ const IncomeProjections = ({ register, control }: IncomeProjectionsProps) => {
         <FieldLegend>Income projections</FieldLegend>
         <FieldGroup>
           {fields.map((unit, index) => (
-            <Field key={unit.id}>
-              <FieldLabel htmlFor={`units.${index}.monthlyRent`}>
-                {unit.name}
-              </FieldLabel>
-              <Input
-                type="number"
-                {...register(`units.${index}.monthlyRent`)}
-              />
-              <Button onClick={() => handleDeleteUnit(index)}>
+            <Field key={unit.id} className="flex flex-row">
+              <div>
+                <FieldLabel htmlFor={`units.${index}.monthlyRent`}>
+                  {unit.name}
+                </FieldLabel>
+                <Input
+                  type="number"
+                  {...register(`units.${index}.monthlyRent`)}
+                />
+              </div>
+              <Button className="max-w-max self-end" variant="ghost" onClick={() => handleDeleteUnit(index)}>
                 <Trash />
               </Button>
             </Field>
           ))}
         </FieldGroup>
-        <Button onClick={handleAddUnit}>
+        <Button className="max-w-max" onClick={handleAddUnit}>
           Add unit <Plus />
         </Button>
         <p>${annualIncome} annually</p>
