@@ -106,9 +106,9 @@ export const buildCashflowForLoanPeriod = (
     const curYearExpenses = prevYearMetaData.expenses + (prevYearMetaData.expenses * annualOperatingExpenseIncrease)
     const curYearCashflow = curYearIncome - curYearExpenses
     cashflowOverTime.push({
-      income: curYearIncome,
-      expenses: curYearExpenses,
-      cashFlow: curYearCashflow
+      income: roundTwoDecimalPlaces(curYearIncome),
+      expenses: roundTwoDecimalPlaces(curYearExpenses),
+      cashFlow: roundTwoDecimalPlaces(curYearCashflow)
     })
   }
 
