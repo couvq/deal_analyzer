@@ -1,5 +1,5 @@
 import MultiStepForm from "@/components/MultiStepForm";
-import { StepProvider } from "./context/TabsContext";
+import { StepProvider } from "./context/StepContext";
 
 const App = () => {
   return (

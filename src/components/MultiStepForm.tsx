@@ -1,4 +1,4 @@
-import { useStep, useStepDispatch, type StepType } from "@/context/TabsContext";
+import { useStep, useStepDispatch, type StepType } from "@/context/StepContext";
 import { getDefaultValuesFromUrl } from "@/lib/utils";
 import type { FormValues } from "@/types/shared";
 import { useForm } from "react-hook-form";
