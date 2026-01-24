@@ -1,4 +1,4 @@
-import { useStep, useStepDispatch } from "@/context/TabsContext";
+import { useStep, useStepDispatch } from "@/context/StepContext";
 import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
